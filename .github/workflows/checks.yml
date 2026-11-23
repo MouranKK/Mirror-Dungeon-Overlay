@@ -1,0 +1,27 @@
+name: Public source checks
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Static source checks (no dependencies)
+        run: node scripts/verify-source.cjs
+      - name: Require lockfile before releases
+        shell: bash
+        run: |
+          if test ! -f package-lock.json; then
+            echo 'package-lock.json missing. Run Build-Windows.cmd locally and commit the lockfile.'
+            exit 1
+          fi
+      - name: Install exactly locked deps
+        run: npm ci --no-fund
+      - name: Report high-severity advisories
+        run: npm audit --audit-level=high

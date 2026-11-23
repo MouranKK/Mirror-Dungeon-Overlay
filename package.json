@@ -1,0 +1,43 @@
+{
+  "name": "limbus-mirror-guide-overlay",
+  "version": "1.2.2",
+  "private": true,
+  "description": "Unofficial illustrated Windows mirror dungeon overlay with original artwork and optional personal screenshot import; no game assets bundled",
+  "main": "main.cjs",
+  "author": "Community-maintained (AI-assisted)",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "verify": "node scripts/verify-source.cjs",
+    "audit:deps": "npm audit --audit-level=high",
+    "build:win": "electron-builder --win portable --x64 --publish never"
+  },
+  "devDependencies": {
+    "electron": "45.4.1",
+    "electron-builder": "26.18.0"
+  },
+  "build": {
+    "appId": "org.community.mirrordungeon.overlay",
+    "productName": "Mirror Dungeon Overlay Community Beta",
+    "files": [
+      "main.cjs",
+      "preload.cjs",
+      "app.ico",
+      "web/**/*",
+      "package.json",
+      "!**/*.map",
+      "!**/*.log"
+    ],
+    "asar": true,
+    "win": {
+      "target": [
+        "portable"
+      ],
+      "icon": "app.ico",
+      "artifactName": "MirrorDungeonOverlay-${version}-${arch}.${ext}"
+    },
+    "portable": {
+      "artifactName": "MirrorDungeonOverlay-${version}-${arch}.${ext}"
+    }
+  }
+}

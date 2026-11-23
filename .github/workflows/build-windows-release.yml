@@ -1,0 +1,64 @@
+name: Build Windows Beta and prepare Release
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout public source
+        uses: actions/checkout@v4
+      - name: Configure Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: 'npm'
+      - name: Require committed dependency lock file
+        shell: pwsh
+        run: |
+          if (-not (Test-Path 'package-lock.json')) {
+            throw 'Missing package-lock.json. Run npm install --package-lock-only locally, review it, and commit it before running this workflow.'
+          }
+      - name: Install locked dependencies
+        run: npm ci --no-fund
+      - name: Check source safety invariants
+        run: npm run verify
+      - name: Audit high and critical dependency advisories
+        run: npm audit --audit-level=high
+      - name: Build unsigned Windows portable EXE
+        run: npm run build:win
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+      - name: Generate SHA-256 digest
+        shell: pwsh
+        run: |
+          $exe = Get-ChildItem dist -Filter '*.exe' | Select-Object -First 1
+          if (-not $exe) { throw 'No EXE found after build' }
+          $hash = (Get-FileHash $exe.FullName -Algorithm SHA256).Hash.ToLowerInvariant()
+          "$hash  $($exe.Name)" | Set-Content 'dist/SHA256SUMS.txt' -Encoding ascii
+      - name: Upload reviewed-build candidate
+        uses: actions/upload-artifact@v4
+        with:
+          name: MirrorDungeonOverlay-Windows-candidate
+          path: |
+            dist/*.exe
+            dist/SHA256SUMS.txt
+          if-no-files-found: error
+      # Do NOT make an unsigned, untested executable public automatically.
+      # Tagged builds generate a DRAFT GitHub Release. The repository owner
+      # checks the artifact, scans it, tests it and manually clicks Publish.
+      - name: Create draft prerelease for version tag
+        if: startsWith(github.ref, 'refs/tags/v')
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $tag = '${{ github.ref_name }}'
+          gh release create $tag --draft --prerelease --title "$tag - Public Beta (unsigned)" --notes-file RELEASE_NOTES_TEMPLATE.md dist/*.exe dist/SHA256SUMS.txt
