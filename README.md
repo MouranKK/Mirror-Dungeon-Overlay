@@ -4,7 +4,7 @@
 
 ## 下载
 
-到右侧 **Releases** 下载 `镜牢指挥条.zip`，完整解压后打开「程序」文件夹，双击 `MirrorDungeonOverlay.exe`。
+到右侧 **Releases** 下载 `MirrorDungeonOverlay.zip`（镜牢指挥条），完整解压后打开「程序」文件夹，双击 `MirrorDungeonOverlay.exe`。
 
 - 程序没有数字签名，Windows 提示“未知发布者”时点“更多信息 → 仍要运行”。
 - 游戏请用“无边框窗口”。
@@ -27,7 +27,7 @@
 
 ## 关于这个仓库
 
-仓库里现在的源码是早期公开测试版 v1.2.2，已经不是最新版。**普通玩家请直接下载 Releases 里的 `镜牢指挥条.zip`**：解压即用，不需要安装 Node.js，也不需要联网。
+仓库里现在的源码是早期公开测试版 v1.2.2，已经不是最新版。**普通玩家请直接下载 Releases 里的 `MirrorDungeonOverlay.zip`**：解压即用，不需要安装 Node.js，也不需要联网。
 
 ## 反馈
 
