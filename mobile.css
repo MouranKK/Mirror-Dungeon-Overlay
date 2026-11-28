@@ -1,0 +1,34 @@
+/* R34 网页版 / 手机：只在浏览器里生效（电脑版有 MD_WINDOW，不加 mdWeb）。
+   A：竖屏 —— 换层和分页挪到屏幕底部，按钮加大，适合单手。
+   C：矮窗（横屏、安卓小窗、分屏，高度 ≤520）—— 保持电脑版的紧凑排版，只把高度改成真实可视高度。
+   电脑版样式里很多 !important，这里同样要用 !important 才能盖过。 */
+html.mdWeb body.r14run #app{height:100dvh!important}
+html.mdWeb body{-webkit-tap-highlight-color:transparent;overscroll-behavior:none}
+
+@media (min-height:521px){
+ html.mdPhone body.r14run{font-size:15px}
+ html.mdPhone body.r14run #app .toolbar{height:46px!important;padding:5px 8px!important;gap:6px}
+ html.mdPhone body.r14run #app .toolbar button,html.mdPhone body.r14run #app .toolbar select{height:36px!important;font-size:16px!important;padding:0 12px}
+ /* 底部：分页在上，换层在最下，贴着手指 */
+ html.mdPhone body.r14run #app #r23floors{order:3;flex:none;height:auto!important;padding:6px 8px calc(6px + env(safe-area-inset-bottom))!important;gap:6px;border-top:1px solid #3b536c;border-bottom:0;background:#15243a}
+ html.mdPhone body.r14run #app #r23floors button,html.mdPhone body.r14run #app #r23floors select{height:46px!important;font-size:17px!important}
+ html.mdPhone body.r14run #app #r23floors select{flex:1.2;min-width:0;padding:0 4px!important}
+ html.mdPhone body.r14run #sheet{order:2}
+ html.mdPhone body.r14run #sheetBody{gap:0!important}
+ html.mdPhone body.r14run .r14rail{order:1}
+ html.mdPhone body.r14run #app .r14nav{order:2;padding:6px 0 0;gap:5px}
+ html.mdPhone body.r14run #app .r14nav button{height:42px!important;font-size:15px!important}
+ html.mdPhone body.r14run #app .r14nav button{padding:0 2px!important}
+ html.mdPhone body.r14run #app .r14nav:has(button:nth-child(5)) button{font-size:13px!important;letter-spacing:-.5px;flex:1 1 auto!important}
+ html.mdPhone .r14page{padding:8px 8px 10px!important}
+ html.mdPhone .r14page p{font-size:15px!important;line-height:1.55}
+ html.mdPhone .r14page button,html.mdPhone .r14page select{min-height:34px;font-size:14px!important}
+ html.mdPhone .r14page summary{padding:6px 0;font-size:15px}
+}
+
+/* 电脑浏览器（宽屏或 pc.html）：界面放在中间一栏，和电脑版小窗一样宽，换层留在顶部 */
+html.mdPC body{background:#0b1420}
+html.mdPC body.r14run #app{zoom:1.2;height:calc(100dvh / 1.2)!important;max-width:480px!important;margin:0 auto;border-left:1px solid #3b536c;border-right:1px solid #3b536c}
+/* R38d：字号“中 / 大”在网页上用 CSS zoom（--mdz），高度要再除回来，不然滚不到底 */
+html.mdWeb body.r14run #app{height:calc(100dvh / var(--mdz,1))!important}
+html.mdPC body.r14run #app{height:calc(100dvh / 1.2 / var(--mdz,1))!important}

@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#111c2b">
+<meta name="description" content="边狱公司15层镜牢：Game Bar超小悬浮攻略，图片、卡包、商店、合成与制约">
+<link rel="icon" href="./overlay-icon-192.png">
+<link rel="apple-touch-icon" href="./overlay-icon-192.png">
+<link rel="manifest" href="./overlay-manifest.json">
+<link rel="stylesheet" href="./overlay.css?v=R38e">
+<link rel="stylesheet" href="./mobile.css?v=R38d">
+<script src="./mobile.js?v=R35b"></script>
+<title>镜牢指挥条（测试版 1.06）</title>
+</head>
+<body>
+<div id="app">
+  <header class="toolbar">
+    <span class="mark" aria-label="镜牢指挥条">◈</span>
+    <select id="team" title="选择队伍" aria-label="选择队伍"><option value="burnVideo">拇指×黎明·烧震</option><option value="wedgeVideo">楔子×黎明·呼震</option><option value="pinkyVideo">小指良·伪单通</option></select>
+    <button type="button" id="prev" title="上一层" aria-label="上一层">‹</button>
+    <select id="floor" aria-label="选择楼层" title="跳转楼层"></select>
+    <button type="button" id="next" title="下一层" aria-label="下一层">›</button>
+    <button type="button" id="settings" aria-label="显示更多功能" title="更多">⋯</button>
+  </header>
+  <div id="summary" class="summary">
+    <img id="heroImg" src="./overlay-icon-192.png" alt="当前目标的图片" width="43" height="43">
+    <div class="summaryText"><span id="smallLabel" class="eyebrow">准备</span><b id="command">选择队伍，开始攻略</b><small id="subline">只显示目前要做的事</small></div>
+    <button type="button" id="expand" aria-label="展开详细攻略" title="展开或收起">▾</button>
+  </div>
+  <nav id="phases" class="phases" aria-label="快速切换操作阶段">
+    <button type="button" data-stage="packs" class="active">卡包</button>
+    <button type="button" data-stage="map">地图</button>
+    <button type="button" data-stage="gifts">饰品</button>
+    <button type="button" data-stage="shop">商店</button>
+    <button type="button" data-stage="trial">制约</button>
+    <button type="button" data-stage="track">本局</button>
+  </nav>
+  <section id="sheet" class="sheet" hidden>
+    <div class="sheetHead"><strong id="sheetTitle">当前操作</strong><button type="button" id="closeSheet" title="收起">收起 ⌃</button></div>
+    <div id="sheetBody"></div>
+  </section>
+  <section id="extras" class="extras" hidden>
+    <div class="extrasButtons">
+    <button type="button" id="openRank">★ 饰品优先表</button>
+    <button type="button" id="openSmartShop">🛒 更多饰品推荐</button>
+    <button type="button" id="openR9Guides">📖 实战攻略补充</button>
+    <button type="button" id="openLibrary">▦ 饰品资料查询（高级）</button>
+    <button type="button" id="openRecipes">⚗ 固定合成</button>
+    <button type="button" id="openBoss">☠ BOSS 攻略</button>
+    <button type="button" id="openCredits" class="creditsEntry">✦ 署名 / 来源 / 反馈</button>
+    </div>
+    <label class="settingsRow">窗口内背景浓度 <input id="opacity" type="range" min="65" max="100" value="94"></label>
+    <div class="caption">窗口置顶、真正的整体透明度和鼠标穿透：使用窗口最顶部的原生控制条。此滑块只控制网页背景。</div>
+  </section>
+  <section id="reference" class="reference" hidden>
+    <div class="sheetHead"><button type="button" id="backRef">← 返回</button><b id="refTitle">饰品图鉴</b><button type="button" id="closeRef">×</button></div>
+    <div id="refBody"></div>
+  </section>
+  <div class="foot">卡包 → 地图 → 饰品 → 商店速看 → 制约 · 非实时游戏读取<br><button id="openCreditsFooter" type="button" title="查看攻略来源、作者署名和反馈方式">攻略来源：锈町Rusty · 工具：MouranKK　·　查看署名 ›</button></div>
+</div>
+<script src="./overlay-store.js?v=1.0"></script>
+<script src="./video-guides.js"></script>
+<script src="./gift-audit.js"></script>
+<script src="./overlay-knowledge.js?v=2.2"></script>
+<script src="./overlay-bosses.js?v=2.2"></script>
+<script src="./burn-lineups.js"></script>
+<script src="./burn-routes.js"></script>
+<script src="./image-catalog.js?v=2.7-packcovers"></script>
+<script src="./external-gifts.js?v=20261123"></script>
+<script src="./smart-shop.js?v=R4"></script>
+<script src="./pack-factchecks.js?v=R5-audit"></script>
+<script src="./md-r6.js?v=R6"></script>
+<script src="./md-r7.js?v=R7"></script>
+<script src="./md-r8.js?v=R8"></script>
+<script src="./md-r9-guides.js?v=R9"></script>
+<script src="./kb-gifts.js?v=R18"></script>
+<script src="./wiki-images.js?v=R19"></script>
+<script src="./team-picks.js?v=R36k"></script>
+<script src="./team-lineups.js?v=R36k"></script>
+<script src="./shop-guide.js?v=R33"></script>
+<script src="./md-events.js?v=R33"></script>
+<script src="./pack-events.js?v=R33"></script>
+<script src="./support-ids.js?v=R33"></script>
+<script src="./solo-teams.js?v=R37l"></script>
+<script src="./identity-images.js?v=R36b"></script>
+<script src="./name-migrations.js?v=R18"></script>
+<script src="./adversities.js?v=R33"></script>
+<script src="./ego-pics.js?v=R38e"></script>
+<script src="./ego-images.js?v=R38e"></script>
+<script src="./pack-floors.js?v=R37i"></script>
+<script src="./overlay.js?v=R38g"></script>
+</body>
+</html>

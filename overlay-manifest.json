@@ -1,0 +1,13 @@
+{
+ "name":"镜牢指挥条 · Limbus Mirror Overlay",
+ "short_name":"镜牢指挥条",
+ "description":"15层镜牢悬浮攻略：卡包、饰品、商店、合成与层末试炼",
+ "start_url":"./overlay.html",
+ "scope":"./",
+ "display":"standalone",
+ "background_color":"#101b2b",
+ "theme_color":"#111c2b",
+ "orientation":"any",
+ "lang":"zh-CN",
+ "icons":[{"src":"./overlay-icon-192.png","sizes":"192x192","type":"image/png","purpose":"any maskable"},{"src":"./overlay-icon-512.png","sizes":"512x512","type":"image/png","purpose":"any"}]
+}
